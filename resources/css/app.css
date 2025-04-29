@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .main-content {
+    margin-left: 250px;
+    padding: 2rem;
+  }
+
+  .stat-box {
+    border-radius: 16px;
+    padding: 1.2rem;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .action-btn {
+    width: 100%;
+    text-align: left;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .action-btn:hover {
+    background-color: #eef5ff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  }
+
+  .topbar {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin-left: 250px;
+  }
+  .fields {
+    margin-left: 0; /* Removed extra left margin */
+    /* padding-top: 20px; */
+    /* padding-bottom: 10px; Added bottom padding for consistency */
+}
+
+@media (min-width: 640px) {
+    .fields {
+        margin-left: 0;
+    }
+}
