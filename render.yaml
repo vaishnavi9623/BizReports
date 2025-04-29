@@ -1,10 +1,10 @@
 services:
   - type: web
-    name: laravel-app
+    name: bizreports
     env: docker
     plan: free
-    dockerfilePath: ./Dockerfile
-    branch: main
     region: oregon
+    branch: main
+    dockerfilePath: ./Dockerfile
     buildCommand: ""
     startCommand: php artisan serve --host=0.0.0.0 --port=8000

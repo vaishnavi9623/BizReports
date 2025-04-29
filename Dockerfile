@@ -1,38 +1,31 @@
-FROM php:8.2-fpm
+# Use PHP with Apache
+FROM php:8.1-apache
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim unzip git curl \
-    libonig-dev \
-    libxml2-dev \
-    libzip-dev \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Copy project files
+COPY . /var/www/html
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Copy composer
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy app code
-COPY . /var/www
-
-# Install composer packages
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
-
-# Generate app key
-RUN php artisan key:generate
 
 # Expose port
 EXPOSE 8000
 
-# Start Laravel app
+# Start Laravel server
 CMD php artisan serve --host=0.0.0.0 --port=8000
